@@ -1,12 +1,12 @@
 #!/bin/bash
 
-updateYum() {
-sudo yum update -y    #Update package manager
-sudo yum install epel-release -y    #Add EPEL(Extra packages for enterprise linux) to your system 
-sudo yum install snapd -y    #Installing snap
-sudo systemctl enable --now snapd.socket    #Enable main snap communication socket
-sudo ln -s /var/lib/snapd/snap /snap    #Enable classic snap support(create a symbolic link between /var/lib/snapd/snap and /snap:) 
+
+updateApt() {
+sudo apt update -y    #Update package manager
+sudo apt upgrade -y    #Add EPEL(Extra packages for enterprise linux) to your system
+sudo apt install snapd -y    #Installing snap
 }
+
 
 #Get Python version and extract major and minor version numbers
 pyInstall() {                                                      
@@ -14,25 +14,28 @@ python_version=$(python3 -V 2>&1 | awk '{print $2}')
 python_major=$(echo $python_version | cut -d. -f1)
 python_minor=$(echo $python_version | cut -d. -f2)
 
-if [ "$python_major" -eq 3 ] && [ "$python_minor" -ge 9 ] && [ "$python_minor" -le 11 ]; then    #Check if Python version is within the specified range
-    echo "Python version is compatible with Ansible version that kubespray supports"
+if [ "$python_major" -eq 3 ] && [ "$python_minor" -ge 9 ] && [ "$python_minor" -le 11 ]; then    #Check if Python version is within the specified range    echo "Python version is compatible with Ansible version that kubespray supports"
     sudo pip3 install --upgrade pip -y
-    sudo yum install python3.9 python3.9-devel -y   #Install Python 3.9 and development tools
-    sudo yum install python3.9-libs python3.9-pip python3.9-setuptools -y    # Install the Python 3.9 venv module
+    sudo apt-get install python3.9-venv -y    # Install the Python 3.9 venv module
     sudo pip3 install yq    #install yq package to parse and manipulate YAML files.
     yq --version
+    sudo apt -y install net-tools   #Install net-tools
 else
     echo "Python version is not in the range 3.9-3.11 and is incompatible with Ansible version that kubespray supports" 
     echo "Upgrading to required python version"
-    sudo yum update -y    #Update yum, package manager for RPM-based operating systems.
-    sudo yum install python3.9 -y    #Install python 3.9
-    sudo alternatives --set python /usr/bin/python3.9    #Update the alternatives system to set Python 3.9 as the default.
-    sudo yum install python3-pip -y    #Install package installer for python3.
+    sudo add-apt-repository ppa:deadsnakes/ppa -y #Download python repository for ubuntu
+    sudo apt install python3.9 -y    #Install python 3.9
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${python_major}.${python_minor} 1    #Set current python version as one of the defaults.
+    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2    #Update the alternatives system to set Python 3.9 as one of the defaults.
+    sudo apt install python3-pip -y    #Install package installer for python3.
+    echo "**********************************************************"
+    echo "Check available versions for python3.9 and select it"
+    sudo update-alternatives --config python3
     sudo pip3 install --upgrade pip -y
-    sudo yum install python3.9 python3.9-devel -y    #Install Python 3.9 and development tools
-    sudo yum install python3.9-libs python3.9-pip python3.9-setuptools -y   # Install the Python 3.9 venv module
+    python3 -V #Double check python version
     sudo pip3 install yq     #install yq package to parse and manipulate YAML files.
     yq --version
+    sudo apt -y install net-tools   #Install net-tools
 fi
 }
 
@@ -48,9 +51,9 @@ else
 fi
 }
 
-#venvInstall() {
-#sudo yum install python${python_major}.${python_minor}-venv    #Install python venv module 
-#}
+venvInstall() {
+sudo apt-get install python${python_major}.${python_minor}-venv    #Install python venv module 
+}
 
 rStrt() {
 sudo shutdown -r +1    #Restart System to ensure snap paths are updated correctly
@@ -68,13 +71,13 @@ if [ "$version" -ge 8 ] && [ "$version" -le 9 ]; then
   
   if [ "$id" = "9" ]; then
     echo "Update package manager"
-    updateYum
+    updateApt
     echo "Install Python dependencies for provisioning tasks"
     pyInstall
     echo "Confirming python version"
     pyVersionCheck
     echo "Installing python venv module"
-    #venvInstall
+    venvInstall
     echo "Restarting to ensure snap paths updated correctly"
     rStrt
   fi  

@@ -112,7 +112,6 @@ instlKub() {
 
 
 #MAIN SCRIPT
-yum install -y net-tools                                                  #Install net-tools
 
 if [ "$(pwd)" = "$KUBESPRAYPATH" ]; then                                  #Check if the current directory is /terraform-k8s-aws_ec2/bash-scripts.
     
