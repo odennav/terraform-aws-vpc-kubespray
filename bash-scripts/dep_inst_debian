@@ -15,9 +15,9 @@ python_major=$(echo $python_version | cut -d. -f1)
 python_minor=$(echo $python_version | cut -d. -f2)
 
 if [ "$python_major" -eq 3 ] && [ "$python_minor" -ge 9 ] && [ "$python_minor" -le 11 ]; then    #Check if Python version is within the specified range    echo "Python version is compatible with Ansible version that kubespray supports"
-    sudo pip3 install --upgrade pip -y
-    sudo apt-get install python3.9-venv -y    # Install the Python 3.9 venv module
-    sudo pip3 install yq    #install yq package to parse and manipulate YAML files.
+    sudo apt install pip -y
+    sudo pip install --upgrade pip 
+    sudo pip install yq    #install yq package to parse and manipulate YAML files.
     yq --version
     sudo apt -y install net-tools   #Install net-tools
 else
@@ -27,13 +27,13 @@ else
     sudo apt install python3.9 -y    #Install python 3.9
     sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${python_major}.${python_minor} 1    #Set current python version as one of the defaults.
     sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2    #Update the alternatives system to set Python 3.9 as one of the defaults.
-    sudo apt install python3-pip -y    #Install package installer for python3.
+    sudo apt install pip -y    #Install package installer for python3.
     echo "**********************************************************"
     echo "Check available versions for python3.9 and select it"
     sudo update-alternatives --config python3
-    sudo pip3 install --upgrade pip -y
+    sudo pip install --upgrade pip 
     python3 -V #Double check python version
-    sudo pip3 install yq     #install yq package to parse and manipulate YAML files.
+    sudo pip install yq     #install yq package to parse and manipulate YAML files.
     yq --version
     sudo apt -y install net-tools   #Install net-tools
 fi
@@ -52,7 +52,7 @@ fi
 }
 
 venvInstall() {
-sudo apt-get install python${python_major}.${python_minor}-venv    #Install python venv module 
+sudo apt-get install python${python_major}.${python_minor}-venv -y    #Install python venv module 
 }
 
 rStrt() {
