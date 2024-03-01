@@ -56,7 +56,7 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
     terraform apply -auto-approve
     ```
 Check AWS console for instances created and running
-![]((https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
+![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
 
 2. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
     ```bash
