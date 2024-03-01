@@ -2,6 +2,7 @@
 
 updateYum() {
 sudo yum update -y    #Update package manager
+sudo subscription-manager register
 sudo yum install epel-release -y    #Add EPEL(Extra packages for enterprise linux) to your system 
 sudo yum install snapd -y    #Installing snap
 sudo systemctl enable --now snapd.socket    #Enable main snap communication socket
