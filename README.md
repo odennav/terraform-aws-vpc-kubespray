@@ -1,4 +1,4 @@
-# ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)AWS VPC 3-Tier Architecture with Kubernetes Deployment ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
+## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)AWS VPC 3-Tier Architecture with Kubernetes Deployment ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
 
 This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public, and database subnets. Private EC2 instances communicate with the internet via a NAT gateway, and elastic IPs are assigned for NAT gateways. A public subnet is provided for a public EC2 instance, and an Internet Gateway facilitates communication for both private and public subnets.
 
@@ -56,6 +56,7 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
     terraform apply -auto-approve
     ```
 Check AWS console for instances created and running
+
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
 
 2. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
@@ -136,7 +137,7 @@ Creates an Elastic IP for the bastion host.
    Use the obtained key pair to SSH into the public EC2 instance. This instance can serve as a jumpbox to access private EC2 instances.
 
    ```bash
-   ssh -i private-key/terraform-key.pem <ipaddress>
+   ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
    ```
    Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
 
