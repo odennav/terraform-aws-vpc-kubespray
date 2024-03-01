@@ -1,4 +1,4 @@
-# [](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48)AWS VPC 3-Tier Architecture with Kubernetes Deployment [](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
+# [](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)AWS VPC 3-Tier Architecture with Kubernetes Deployment [](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
 
 This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public, and database subnets. Private EC2 instances communicate with the internet via a NAT gateway, and elastic IPs are assigned for NAT gateways. A public subnet is provided for a public EC2 instance, and an Internet Gateway facilitates communication for both private and public subnets.
 
@@ -34,22 +34,22 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
      cd terraform-manifest
      ```
 
-a. **Initializes terraform working directory**
-     ```bash
-     terraform init
-     ```
+   **Initializes terraform working directory**
+    ```bash
+    terraform init
+    ```
 
-b. **Validate the syntax of the terraform configuration files**
+   **Validate the syntax of the terraform configuration files**
      ```bash
      terraform validate
      ```
 
-c.**Create an execution plan that describes the changes terraform will make to the infrastructure.
+   **Create an execution plan that describes the changes terraform will make to the infrastructure.**
     ```bash
     terraform plan
     ```
 
-d. **Apply the changes described in execution plan**
+   **Apply the changes described in execution plan**
     ```bash
     terraform destroy -auto-approve
     ```
