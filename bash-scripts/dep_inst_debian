@@ -63,13 +63,11 @@ sudo shutdown -r +1    #Restart System to ensure snap paths are updated correctl
 #MAIN SCRIPT
 
 version=$(awk -F'[".]' '/VERSION_ID=/ {print $2}' /etc/os-release)
-id=$(awk -F'[".]' '/REDHAT_SUPPORT_PRODUCT_VERSION=/ {print $2}' /etc/os-release)
 
 
-if [ "$version" -ge 8 ] && [ "$version" -le 9 ]; then
+if [ "$version" -ge 18 ] && [ "$version" -le 22 ]; then
   echo "Begin function calls"
   
-  if [ "$id" = "9" ]; then
     echo "Update package manager"
     updateApt
     echo "Install Python dependencies for provisioning tasks"
@@ -80,7 +78,7 @@ if [ "$version" -ge 8 ] && [ "$version" -le 9 ]; then
     venvInstall
     echo "Restarting to ensure snap paths updated correctly"
     rStrt
-  fi  
+  
 else
   echo "Linux version not compatible" >&2
 fi
