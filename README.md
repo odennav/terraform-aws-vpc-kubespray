@@ -1,4 +1,4 @@
-# []()AWS VPC 3-Tier Architecture with Kubernetes Deployment []()
+# [](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48)AWS VPC 3-Tier Architecture with Kubernetes Deployment [](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
 
 This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public, and database subnets. Private EC2 instances communicate with the internet via a NAT gateway, and elastic IPs are assigned for NAT gateways. A public subnet is provided for a public EC2 instance, and an Internet Gateway facilitates communication for both private and public subnets.
 
@@ -16,8 +16,8 @@ Special thanks to [Kubernetes-sigs](https://https://github.com/kubernetes-sigs) 
 - The **firewalls are not managed**, you'll need to implement your own rules the way you used to.
     in order to avoid any issue during deployment you should disable your firewall.
 - If kubespray is run from non-root user account, correct privilege escalation method
-    should be configured in the target servers. Then the `ansible_become` flag
-    or command parameters `--become or -b` should be specified.
+    should be configured in the target servers. Then the ansible_become flag
+    or command parameters --become or -b should be specified.
 
 Hardware:
 These limits are safeguarded by Kubespray. Actual requirements for your workload can differ. For a sizing guide go to the [Building Large Clusters](https://kubernetes.io/docs/setup/cluster-large/#size-of-master-and-master-components) guide.
@@ -30,36 +30,36 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
 
 ## Getting Started
 1. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
-   ```bash
-   cd terraform-manifest
-   ```
+     ```bash
+     cd terraform-manifest
+     ```
 
 a. **Initializes terraform working directory**
-   ```bash
-   terraform init
-   ```
+     ```bash
+     terraform init
+     ```
 
 b. **Validate the syntax of the terraform configuration files**
-   ```bash
-   terraform validate
-   ```
+     ```bash
+     terraform validate
+     ```
 
 c.**Create an execution plan that describes the changes terraform will make to the infrastructure.
-  ```bash
-  terraform plan
-  ```
+    ```bash
+    terraform plan
+    ```
 
 d. **Apply the changes described in execution plan**
-  ```bash
-  terraform destroy -auto-approve
-  ```
+    ```bash
+    terraform destroy -auto-approve
+    ```
 
 
 2. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
-  ```bash
-  chmod 770 dependencies-install
-  bash dependencies-install
-  ```
+    ```bash
+    chmod 770 dependencies-install
+    bash dependencies-install
+    ```
 3. Run kubespray-deploy.sh to deploy Kubernetes on the created infrastructure using kubespray.
    Python script builds inventory.
    Ansible playbook used to deploy kubernetes cluster.
@@ -83,7 +83,7 @@ d. **Apply the changes described in execution plan**
    Defines a Terraform module to create the VPC with configurable parameters like VPC name, CIDR blocks, availability zones, and subnets.
 
 ### t6-vpc-outputs.tf
-    Outputs VPC-related information such as VPC ID, CIDR blocks, subnets, NAT gateway IPs, and availability zones.
+Outputs VPC-related information such as VPC ID, CIDR blocks, subnets, NAT gateway IPs, and availability zones.
 
 ### t8-securitygroup-outputs.tf
     Outputs security group information for public bastion hosts and private EC2 instances.
