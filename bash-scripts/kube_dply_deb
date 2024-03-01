@@ -19,16 +19,21 @@ venvActvt() {                                                            #Create
 }
 
 
-pubKyAuth() {        
-    ssh-keygen -t rsa -b 4096                                              #Create ssh-key pair. Press enter for all prompts on location until keys are created.
+pubKyAuth() {                                                     
     
-    ls -la /root/.ssh/                                                     #Confirm private and public keys are created.
+    PEM_KEY=$KUBESPRAYPATH/private-key/terraform-key.pem
 
-    while read -r name ip; do                                              #Iterate through ipaddr-list file and use ssh-copy-id.
+    if [ -e "$PEM_KEY" ]; then                                                    
+
+    while read -r name ip; do                                             
         ip=$(echo "$ip" | tr -d '\r')
-        ssh-copy-id "root@$ip"                                             #Use ssh-copy-id utility to copy public keys to remote servers.
+        ssh -i private-key/terraform-key.pem -T ubuntu@$ip "ifconfig"                                             
+ 
+    done < "$IPADDR_LIST_FILE"
     
-    done < "$IPADDR_LIST_FILE"                                             #While loop reads from ipaddr_list_file.
+    else
+	echo "$name is unreachable. Investigate then revert." >&2; exit 1;
+    fi
 }
 
 
@@ -44,7 +49,7 @@ ansblInv() {
     REQUIREMENTS="$KUBESPRAYPATH/requirements.txt"
 
     if [ -e "$REQUIREMENTS" ]; then
-        pip3 install -U -r "$REQUIREMENTS"                                #Install Ansible and other requirements to deploy kubespray
+        pip install -U -r "$REQUIREMENTS"                                #Install Ansible and other requirements to deploy kubespray
         echo "Dependencies in requirements file installed"
     fi
 
@@ -80,9 +85,8 @@ touch temp.yaml
 tr -d '\r' < "$INPUT_NULL_FILE" > "temp.yaml"    #Remove carriage returns from the input file
 
 yq -r 'del(
-  .all.children.kube_control_plane.hosts.node2,
   .all.children.kube_node.hosts.node1,
-  .all.children.etcd.hosts.node2,
+  .all.children.kube_node.hosts.node2,
   .all.children.etcd.hosts.node3
 )' "temp.yaml" > "$TEMP_JSON_FILE"    #Convert to json and filter out unwanted nodes
 
@@ -101,7 +105,7 @@ kubDply() {
         exit 1
     fi
 
-    ansible-playbook -i $INV_PARENT_DIR/inventory/mycluster/hosts.yaml --become --become-user=root $INV_PARENT_DIR/cluster.yml   #Deploy Kubespray with Ansible Playbook - run the playbook as root
+    ansible-playbook -i $INV_PARENT_DIR/inventory/mycluster/hosts.yaml --become --become-user=root --private-key=$KUBESPRAYPATH/private-key/terraform-key.pem $INV_PARENT_DIR/cluster.yml   #Deploy Kubespray with Ansible Playbook - run the playbook as root
 }
 
 instlKub() {
@@ -116,7 +120,7 @@ instlKub() {
 if [ "$(pwd)" = "$KUBESPRAYPATH" ]; then                                  #Check if the current directory is /terraform-k8s-aws_ec2/bash-scripts.
     
 venvActvt
-pubKyAuth
+#pubKyAuth
 ansblInv
 hstInvEdt
 kubDply
