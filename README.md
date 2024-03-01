@@ -12,7 +12,7 @@ Special thanks to [Kubernetes-sigs](https://https://github.com/kubernetes-sigs) 
 
 - **Minimum required version of Kubernetes is v1.27**
 - **Ansible v2.14+, Jinja 2.11+ and python-netaddr is installed on the machine that will run Ansible commands**
-- The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required (See [Offline Environment](docs/offline-environment.md))
+- The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required.
 - The target servers are configured to allow **IPv4 forwarding**.
 - If using IPv6 for pods and services, the target servers are configured to allow **IPv6 forwarding**.
 - The **firewalls are not managed**, you'll need to implement your own rules the way you used to.
@@ -53,9 +53,10 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
 
    **Apply the changes described in execution plan**
     ```bash
-    terraform destroy -auto-approve
+    terraform apply -auto-approve
     ```
-
+Check AWS console for instances created and running
+![]((https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
 
 2. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
     ```bash
