@@ -4,20 +4,21 @@ pip3 install yq                                                 #Install yq pack
 yq --version
 yum install jq
 
-KUBESPRAYPATH="/kubespray-centOS"                               #Define KUBESPRAYPATH
+KUBESPRAYPATH="/terraform-k8s-aws_ec2/bash-scripts"                               #Define KUBESPRAYPATH
+KUBE_PARENT_DIR="/terraform-k8s-aws_ec2/kubespray"
 IPADDR_LIST_FILE="$KUBESPRAYPATH/ipaddr-list.txt" 
-HOST_YAML="/kubespray-centOS/inventory/mycluster/hosts.yaml"    #Specify the full path to the YAML file
+HOST_YAML="/$KUBE_PARENT_DIR/inventory/mycluster/hosts.yaml"    #Specify the full path to the YAML file
 
 PROJECT_DIR=project
-RESOURCE_DIR=villa
-RESOURCE_NAME=villa
-NODEPORT_YAML=villa.yaml
+RESOURCE_DIR=card
+RESOURCE_NAME=card
+NODEPORT_YAML=card.yaml
 NODEPORT_NUMBER=31090
-RESOURCE_NAME_PATH="$KUBESPRAYPATH/$PROJECT_DIR/$RESOURCE_DIR/$NODEPORT_YAML"
+RESOURCE_NAME_PATH="$KUBE_PARENT_DIR/$PROJECT_DIR/$RESOURCE_DIR/$NODEPORT_YAML"
 
 certCopy() {                                                    #Copy admin.conf file in remote node and paste as config file in control node 
-    if [ ! -d "$KUBESPRAYPATH" ]; then
-        echo "Error: $KUBESPRAYPATH does not exist." >&2
+    if [ ! -d "$KUBE_PARENT_DIR" ]; then
+        echo "Error: $KUBE_PARENT_DIR does not exist." >&2
         exit 1
     fi
 
@@ -50,13 +51,13 @@ certCopy() {                                                    #Copy admin.conf
     fi
 
     scp "root@$REMOTE_NODE:/etc/kubernetes/admin.conf" "$KUBE_KEY_DIR" || exit 1
-    echo "CHECKPOINT-30"
+    echo "Copying admin.conf from remote node"
     rm -f "$KUBE_CERT_DATA" || exit 1
-    echo "CHECKPOINT-31"
+    echo "Removing default cert data"
     mv "$KUBE_KEY_DIR/admin.conf" "$KUBE_KEY_DIR/config" || exit 1
-    echo "CHECKPOINT-32"
+    echo "Changing name of admin.conf to config"
     sed -i.bak "s|    server: https://127.0.0.1:6443|    server: https://$IPADDRESS:6443|" "$KUBE_CERT_DATA" || exit 1
-    echo "CHECKPOINT-33"
+    echo "IP address of kube control node added to cert data"
 }
 
 
@@ -86,11 +87,11 @@ fi
 }
 
 crtNdPrtRscPth() {
-if [ "$(pwd)" != "$KUBESPRAYPATH" ] || [ ! -d "$KUBESPRAYPATH" ]; then
-  echo "Error: We have to be in $KUBESPRAYPATH directory." >&2
+if [ "$(pwd)" != "$KUBE_PARENT_DIR" ] || [ ! -d "$KUBE_PARENT_DIR" ]; then
+  echo "Error: We have to be in $KUBE_PARENT_DIR directory." >&2
 
 else
-  mkdir -p $KUBESPRAYPATH/$PROJECT_DIR/$RESOURCE_DIR
+  mkdir -p $KUBE_PARENT_DIR/$PROJECT_DIR/$RESOURCE_DIR
   touch $RESOURCE_NAME_PATH
 
 fi
@@ -139,7 +140,7 @@ spec:
   type: NodePort
 EOF
 
-echo "CHECKPOINT-41"
+
 }
 
 dpyNdPrtRsc() {
