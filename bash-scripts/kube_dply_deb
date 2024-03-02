@@ -21,7 +21,7 @@ venvActvt() {                                                            #Create
 
 pubKyAuth() {                                                     
     
-    PEM_KEY=$KUBESPRAYPATH/private-key/terraform-key.pem
+    PEM_KEY=/tmp/terraform-key.pem
 
     if [ -e "$PEM_KEY" ]; then                                                    
 
