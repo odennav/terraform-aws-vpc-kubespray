@@ -25,11 +25,11 @@ pubKyAuth() {
 
     if [ -e "$PEM_KEY" ]; then                                                    
 
-    while read -r name ip; do                                             
-        ip=$(echo "$ip" | tr -d '\r')
-        ssh -i private-key/terraform-key.pem -T ubuntu@$ip "ifconfig"                                             
+      while read -r name ip; do                                             
+          ip=$(echo "$ip" | tr -d '\r')
+          ssh -i $PEM_KEY -T ubuntu@$ip "ifconfig"                                             
  
-    done < "$IPADDR_LIST_FILE"
+      done < "$IPADDR_LIST_FILE"
     
     else
 	echo "$name is unreachable. Investigate then revert." >&2; exit 1;
@@ -70,9 +70,9 @@ ansblInv() {
 
 hstInvEdt() {
 #Input and output file paths
-INPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/host.yaml"
-INPUT_NULL_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/host-null.yaml"
-OUTPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/host.yaml"
+INPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/hosts.yaml"
+INPUT_NULL_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/hosts-null.yaml"
+OUTPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/hosts.yaml"
 TEMP_JSON_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/temp.json"
 
 mv $INPUT_FILE $INPUT_NULL_FILE

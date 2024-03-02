@@ -65,9 +65,9 @@ ansblInv() {
 
 hstInvEdt() {
 #Input and output file paths
-INPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/host.yaml"
-INPUT_NULL_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/host-null.yaml"
-OUTPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/host.yaml"
+INPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/hosts.yaml"
+INPUT_NULL_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/hosts-null.yaml"
+OUTPUT_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/hosts.yaml"
 TEMP_JSON_FILE="/terraform-k8s-aws_ec2/kubespray/inventory/mycluster/temp.json"
 
 mv $INPUT_FILE $INPUT_NULL_FILE

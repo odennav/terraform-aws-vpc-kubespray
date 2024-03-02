@@ -23,7 +23,7 @@ if [ "$python_major" -eq 3 ] && [ "$python_minor" -ge 9 ] && [ "$python_minor" -
     sudo yum install python3.9-libs python3.9-pip python3.9-setuptools -y    # Install the Python 3.9 venv module
     sudo pip3 install yq    #install yq package to parse and manipulate YAML files.
     yq --version
-    sudo pip3 install jq
+    sudo yum install jq -y
     sudo yum install -y net-tools                                                 #Install net-tools
 else
     echo "Python version is not in the range 3.9-3.11 and is incompatible with Ansible version that kubespray supports" 
@@ -37,7 +37,7 @@ else
     sudo yum install python3.9-libs python3.9-pip python3.9-setuptools -y   # Install the Python 3.9 venv module
     sudo pip3 install yq     #install yq package to parse and manipulate YAML files.
     yq --version
-    sudo pip3 install jq
+    sudo yum install jq -y
     sudo yum install -y net-tools                                                  #Install net-tools
 fi
 }
