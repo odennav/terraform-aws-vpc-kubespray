@@ -1,7 +1,6 @@
-#Get latest AMI ID for Amazon Linux2 OS
-#Define the RHEL 9.3 AMI by:
-#RedHat, Latest, x86_64, EBS, HVM, RHEL 9.3
-data "aws_ami" "rhel9_3" {
+#Get latest AMI ID for Ubuntu
+
+data "aws_ami" "ubuntu" {
   most_recent = true
 
   filter {
@@ -21,7 +20,7 @@ data "aws_ami" "rhel9_3" {
 
   filter {
     name   = "name"
-    values = ["RHEL-9.3*"]
+    values = ["ubuntu*"]
   }
 }
 
