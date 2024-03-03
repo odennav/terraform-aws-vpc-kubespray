@@ -53,5 +53,5 @@ list of IPs used by bash scripts for kubernetes deployment.
 - Creates EC2 instances for the database subnet with count specified.
 
 ### 7-elasticip.tf:
-- Creates an Elastic IP for the bastion host.
+- Creates an Elastic IP for the NAT gateway.
 
