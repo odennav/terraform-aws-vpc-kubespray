@@ -31,7 +31,57 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
 
 
 ## Getting Started
-1. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
+1. **Change password of public ec2instance (control-dev) user**
+   ```bash
+   sudo passwd
+   ```
+
+2. **Change directory to /**
+   ```bash
+   cd /
+   ```
+
+3. **Update yum package manager**
+   ```bash
+   yum update
+   ```
+
+4. **Confirm git was installed by terraform**
+   ```bash
+   git --version
+   ```
+
+5. **Confirm terraform-key was transferred to public ec2instance by null provisioner**
+   Please note if .pem key not found, copy it manually. Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
+   ```bash
+   ls -la /tmp/terraform-key.pem
+   cp /tmp/terraform-key.pem /
+   ```
+   
+6. **Change permissions of terraform-key.pem file**
+   ssh test will fail if permissions of .pem key are not secure enough
+   ```bash
+   chmod 400 /tmp/terraform-key.pem
+   ```
+
+7. **Clone this repo to / directory in control-dev node**
+   ```bash
+   git clone git@github.com:odennav/terraform-k8s-aws_ec2.git
+   ```
+
+8. **Copy ip adresses of private ec2instances deployed by terraform**
+   Enter each ip address into ipaddr-list.txt. Don't change format seen in .txt file
+   Ip addresses will be read by bash scripts.
+   For security reasons, don't show your private ips. The ones below are destroyed. Picture shown below is just for clarity.
+   ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2-private-ip.PNG) 
+  
+
+9. **Clone kubernetes-sigs kubespray repo to / directory in control node**
+   ```bash
+   git clone git@github.com:kubernetes-sigs/kubespray.git
+   ```
+
+10. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
      ```bash
      cd terraform-manifest
      ```
@@ -59,7 +109,7 @@ Check AWS console for instances created and running
 
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
 
-2. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
+11. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
     ```bash
     chmod 770 dependencies-install
     bash dependencies-install
@@ -67,7 +117,7 @@ Check AWS console for instances created and running
     Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
 
 
-3. Run kubespray-deploy.sh to deploy Kubernetes on the created infrastructure using kubespray.
+12. Run kubespray-deploy.sh to deploy Kubernetes on the created infrastructure using kubespray.
    ```bash
    chmod 770 kubespray-deploy.sh
    bash kubespray-deploy.sh
