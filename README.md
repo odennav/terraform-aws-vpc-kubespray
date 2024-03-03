@@ -70,9 +70,13 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
    ```
 
 8. **Copy ip adresses of private ec2instances deployed by terraform**
-   Enter each ip address into ipaddr-list.txt. Don't change format seen in .txt file
+   
+   Enter each ip address into ipaddr-list.txt.
+   Don't change format seen in .txt file
    Ip addresses will be read by bash scripts.
-   For security reasons, don't show your private ips. The ones below are destroyed. Picture shown below is just for clarity.
+   For security reasons, don't show your private ips. The ones below are destroyed.
+   Picture shown below is just for clarity.
+   
    ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2-private-ip.PNG) 
   
 
