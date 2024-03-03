@@ -1,6 +1,6 @@
 ## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)   AWS VPC 3-Tier Architecture with K8s Deployment    ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
 
-This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public, and database subnets. Private EC2 instances communicate with the internet via a NAT gateway, and elastic IPs are assigned for NAT gateways. A public subnet is provided for a public EC2 instance, and an Internet Gateway facilitates communication for both private and public subnets.
+This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public,database subnets. Bastion, private and database EC2 instances created for VPC. NAT gateway created for private ec2 instances to communicate with the internet and elastic IPs are assigned for NAT gateways.No routes created from NAT gateway to database instances. Bash scripts used to automate deployment of kubernetes cluster to private ec2 instances using kubespray.
 
 
 ## Special Credits
