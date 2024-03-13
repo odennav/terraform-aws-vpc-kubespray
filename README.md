@@ -1,6 +1,12 @@
 ## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)   AWS VPC 3-Tier Architecture with K8s Deployment    ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
 
-This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public,database subnets. Bastion, private and database EC2 instances created for VPC. NAT gateway created for private EC2 instances to communicate with the internet and elastic IPs are assigned for NAT gateways. No routes created from NAT gateway to database instances. Bash scripts used to automate deployment of kubernetes cluster to private EC2 instances using kubespray.
+This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public,database subnets.
+Bastion, private and database EC2 instances created for VPC.
+
+NAT gateway created for private EC2 instances to communicate with the internet and elastic IPs are assigned for NAT gateways.
+No routes created from NAT gateway to database instances.
+
+Bash scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
 
 
 ## Special Credits
@@ -86,29 +92,29 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
    ```
 
 10. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
-     ```bash
-     cd terraform-manifest
-     ```
+   ```bash
+   cd terraform-manifest
+   ```
 
    **Initializes terraform working directory**
-    ```bash
-    terraform init
-    ```
+   ```bash
+   terraform init
+   ```
 
    **Validate the syntax of the terraform configuration files**
-     ```bash
-     terraform validate
-     ```
+   ```bash
+   terraform validate
+   ```
 
    **Create an execution plan that describes the changes terraform will make to the infrastructure.**
-    ```bash
-    terraform plan
-    ```
+   ```bash
+   terraform plan
+   ```
 
    **Apply the changes described in execution plan**
-    ```bash
-    terraform apply -auto-approve
-    ```
+   ```bash
+   terraform apply -auto-approve
+   ```
 Check AWS console for instances created and running
 
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
@@ -122,12 +128,12 @@ Check AWS console for instances created and running
 
 
 12. Run kubespray-deploy.sh to deploy Kubernetes on the created infrastructure using kubespray.
-   ```bash
-   chmod 770 kubespray-deploy.sh
-   bash kubespray-deploy.sh
-   ```
-   It creates a virtual environment, copies SSH keys, updates Ansible inventory, edits host inventory, installs kubectl and deploys Kubernetes cluster.
-   Python script  builds inventory.
+    ```bash
+    chmod 770 kubespray-deploy.sh
+    bash kubespray-deploy.sh
+    ```
+    Execution of this basch script creates a virtual environment, copies SSH keys, updates Ansible inventory, edits host inventory, installs kubectl and deploys Kubernetes cluster.
+   Python script builds inventory.
    Ansible playbook used to deploy kubernetes cluster.
 
 
@@ -145,7 +151,7 @@ Check AWS console for instances created and running
 
 
 ## Destroying Resources(Optional)
-To tear down the infrastructure created by Terraform.
+To tear down the infrastructure created by Terraform. Reduce costs incurred from AWS due to creation of resources.
   ```bash
   terraform destroy
   ```
