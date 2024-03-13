@@ -92,29 +92,33 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
    ```
 
 10. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
-   ```bash
-   cd terraform-manifest
-   ```
+    
+    ```bash
+    cd terraform-manifest
+    ```
 
-   **Initializes terraform working directory**
-   ```bash
-   terraform init
-   ```
+    **Initializes terraform working directory**
+    
+    ```bash
+    terraform init
+    ```
 
-   **Validate the syntax of the terraform configuration files**
-   ```bash
-   terraform validate
-   ```
+    **Validate the syntax of the terraform configuration files**
+    
+    ```bash
+    terraform validate
+    ```
 
-   **Create an execution plan that describes the changes terraform will make to the infrastructure.**
-   ```bash
-   terraform plan
-   ```
+    **Create an execution plan that describes the changes terraform will make to the infrastructure.**
+    
+    ```bash
+    terraform plan
+    ```
 
-   **Apply the changes described in execution plan**
-   ```bash
-   terraform apply -auto-approve
-   ```
+    **Apply the changes described in execution plan**
+    ```bash
+    terraform apply -auto-approve
+    ```
 Check AWS console for instances created and running
 
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
