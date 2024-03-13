@@ -72,7 +72,7 @@ These limits are safeguarded by Kubespray. Actual requirements for your workload
 
 7. **Clone this repo to / directory in control-dev node**
    ```bash
-   git clone git@github.com:odennav/terraform-k8s-aws_ec2.git
+   git clone git@github.com:odennav/terraform-k8s-aws_vpc.git
    ```
 
 8. **Copy ip adresses of private ec2instances deployed by terraform**
