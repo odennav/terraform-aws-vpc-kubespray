@@ -1,4 +1,4 @@
-## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)   AWS VPC 3-Tier Architecture with K8s Deployment    ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
+## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)   AWS VPC 3-Tier Architecture with Kubernetes Deployment    ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
 
 This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public,database subnets.
 Bastion, private and database EC2 instances created for VPC.
