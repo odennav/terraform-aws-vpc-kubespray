@@ -118,7 +118,7 @@ Check AWS console for instances created and running
 
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
 
-11. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
+11. **Run dependencies-install.sh in public ec2instance to install necessary dependencies**
     ```bash
     chmod 770 dependencies-install
     ./dependencies-install
@@ -126,7 +126,7 @@ Check AWS console for instances created and running
     Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
 
 
-12. Setup system for Ansible to deploy kubernetes cluster.
+   **Setup system for Ansible playbook execution**
     ```bash
     chmod 770 kubespray-deploy.sh
     ./kubespray-env-build.sh
