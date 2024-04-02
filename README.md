@@ -26,9 +26,9 @@ Hardware:
 These limits are safeguarded by Kubespray. Actual requirements for your workload can differ. For a sizing guide go to the [Building Large Clusters](https://kubernetes.io/docs/setup/cluster-large/#size-of-master-and-master-components) guide.
 
 - Master
-  - Memory: 1500 MB
+  - Memory: 4096 MB
 - Node
-  - Memory: 1024 MB
+  - Memory: 2048 MB
 
 
 ## Getting Started
