@@ -121,20 +121,24 @@ Check AWS console for instances created and running
 11. Run dependencies-install.sh in public ec2instance to install necessary dependencies.
     ```bash
     chmod 770 dependencies-install
-    bash dependencies-install
+    ./dependencies-install
     ```
     Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
 
 
-12. Run kubespray-deploy.sh to deploy Kubernetes on the created infrastructure using kubespray.
+12. Setup system for Ansible to deploy kubernetes cluster.
     ```bash
     chmod 770 kubespray-deploy.sh
-    bash kubespray-deploy.sh
+    ./kubespray-env-build.sh
     ```
-    Execution of this basch script creates a virtual environment, copies SSH keys, updates Ansible inventory, edits host inventory, installs kubectl and deploys Kubernetes cluster.
-   Python script builds inventory.
-   Ansible playbook used to deploy kubernetes cluster.
-
+    This bash script copies SSH keys to private ec2 instances, updates Ansible inventory, edits host inventory file and installs kubectl
+    Python script builds inventory.
+   
+    Change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
+   ```bash
+   cd /kubespray
+   ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml
+   ```
 
 
 ## SSH Access
