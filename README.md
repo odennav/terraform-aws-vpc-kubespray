@@ -127,6 +127,7 @@ Check AWS console for instances created and running
 
 
    **Setup system for Ansible playbook execution**
+    
     ```bash
     chmod 770 kubespray-deploy.sh
     ./kubespray-env-build.sh
@@ -135,10 +136,11 @@ Check AWS console for instances created and running
     Python script builds inventory.
    
     Change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
-   ```bash
-   cd /kubespray
-   ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml
-   ```
+    
+    ```bash
+    cd /kubespray
+    ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml
+    ```
 
 
 ## SSH Access
