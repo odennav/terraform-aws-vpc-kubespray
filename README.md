@@ -126,21 +126,21 @@ Check AWS console for instances created and running
     Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
 
 
-   **Setup system for Ansible playbook execution**
+    **Setup system for Ansible playbook execution**
     
-    ```bash
-    chmod 770 kubespray-deploy.sh
-    ./kubespray-env-build.sh
-    ```
+   ```bash
+   chmod 770 kubespray-deploy.sh
+   ./kubespray-env-build.sh
+   ```
     This bash script copies SSH keys to private ec2 instances, updates Ansible inventory, edits host inventory file and installs kubectl
     Python script builds inventory.
    
     Change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
     
-    ```bash
-    cd /kubespray
-    ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml
-    ```
+   ```bash
+   cd /kubespray
+   ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml
+   ```
 
 
 ## SSH Access
