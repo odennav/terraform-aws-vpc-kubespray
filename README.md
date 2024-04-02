@@ -9,11 +9,6 @@ No routes created from NAT gateway to database instances.
 Bash scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
 
 
-## Special Credits
-
-Special thanks to [Kubernetes-sigs](https://https://github.com/kubernetes-sigs) for their amazing work.
-
-
 ## Requirements
 
 - **Minimum required version of Kubernetes is v1.27**
