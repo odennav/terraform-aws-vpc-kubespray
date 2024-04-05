@@ -29,8 +29,9 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 ## Getting Started
 
 
-1. **Clone this repo to / directory in local machine**
+1. **Clone this repo to local machine**
    ```bash
+   cd /
    git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
    cd terraform-kubernetes-aws-ec2/terraform-manifest
    ```
