@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KUBESPRAYPATH="/terraform-k8s-aws_ec2/bash-scripts"        
+KUBESPRAYPATH="/terraform-kubernetes-aws-ec2/bash-scripts"        
 IPADDR_LIST_FILE="$KUBESPRAYPATH/ipaddr-list.txt"  
 INV_PARENT_DIR=/kubespray
 
@@ -13,7 +13,7 @@ venvActvt() {                                                  #Create virtual e
     if [ -d "$VENVDIR" ] || [ -d "$KUBESPRAYPATH" ]; then
         source ../$VENVDIR/bin/activate
     else
-        echo "Error: Both Kubespray-venv & terraform-k8s-aws_ec2 directories not found." >&2
+        echo "Error: Both Kubespray-venv & terraform-kubernetes-aws-ec2 directories not found." >&2
         exit 1
     fi
 }
