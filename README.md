@@ -1,4 +1,4 @@
-## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-amazon-web-services-48.png)   AWS VPC 3-Tier Architecture with Kubernetes Deployment    ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/icons-k8s-color/icons8-kubernetes-48.png)
+## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-amazon-web-services-48.png)   AWS VPC 3-Tier Architecture with Kubernetes Deployment    ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-kubernetes-48.png)
 
 This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public,database subnets.
 Bastion, private and database EC2 instances created for VPC.
@@ -11,6 +11,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 
 ## Requirements
 
+- Install [Terraform](https://developer.hashicorp.com/terraform/install)
 - **Minimum required version of Kubernetes is v1.27**
 - **Ansible v2.14+, Jinja 2.11+ and python-netaddr is installed on the machine that will run Ansible commands**
 - The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required.
