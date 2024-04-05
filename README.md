@@ -13,7 +13,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 
 - Install [Terraform](https://developer.hashicorp.com/terraform/install)
 - **Minimum required version of Kubernetes is v1.27**
-- **Ansible v2.14+, Jinja 2.11+ and python-netaddr is installed on the machine that will run Ansible commands**
+- **Ansible v2.14+, Jinja 2.11+ and python-netaddr** is installed on the machine that will run Ansible commands.
 - The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required.
 - The target servers are configured to allow **IPv4 forwarding**.
 - If using IPv6 for pods and services, the target servers are configured to allow **IPv6 forwarding**.
@@ -61,9 +61,12 @@ Check AWS console for instances created and running
 
    **SSH Access**
    
-   Obtain a .pem terraform key from AWS, which is used to SSH into the public EC2 instance. .ppk key used for putty or windows.
+   Obtain a .pem terraform key from AWS, which is used to SSH into the public EC2 instance.
+   ppk key used for putty in windows.
 
-   Use the obtained key pair to SSH into the public EC2 instance. This instance can serve as a jumpbox to access private EC2 instances.
+   Use the obtained .pem key from AWS to SSH into the public EC2 instance.
+   IPv4 address of public EC2 instance will be shown in terraform outputs.
+   
 
    ```bash
    ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
