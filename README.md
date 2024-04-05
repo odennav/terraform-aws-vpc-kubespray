@@ -122,14 +122,17 @@ Check AWS console for instances created and running
    ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2-private-ip.PNG) 
 
 
-9. **Run dependencies-install.sh in public ec2instance to install necessary dependencies**
+9. **Install yum and python utilities**
+
+    Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
+
+
     ```bash
     chmod 770 dependencies-install
     ./dependencies-install
     ```
-    Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
 
-    **Setup system for Ansible playbook execution**
+10. **Setup for Ansible playbook execution**
     
      ```bash
      chmod 770 kubespray-deploy.sh
