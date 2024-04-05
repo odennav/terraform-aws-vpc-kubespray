@@ -27,11 +27,15 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 
 ## Getting Started
 
-1. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
-    
-    ```bash
-    cd terraform-manifest
-    ```
+
+1. **Clone this repo to / directory in local machine**
+   ```bash
+   git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
+   cd terraform-kubernetes-aws-ec2/terraform-manifest
+   ```
+
+
+2. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
 
     **Initializes terraform working directory**
     
@@ -71,24 +75,24 @@ Check AWS console for instances created and running
    ```
    Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
 
-2. **Change password of public ec2instance (control-dev) user**
+3. **Change password of public ec2instance (control-dev) user**
    ```bash
    sudo passwd
    ```
 
-3. **Update yum package manager**
+4. **Update yum package manager**
    ```bash
    cd /
    yum update -y
    yum upgrade -y
    ```
 
-4. **Confirm git was installed by terraform**
+5. **Confirm git was installed by terraform**
    ```bash
    git --version
    ```
 
-5. **Confirm terraform-key was transferred to public ec2instance by null provisioner**
+6. **Confirm terraform-key was transferred to public ec2instance by null provisioner**
    
    Please note if .pem key not found, copy it manually. 
    Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
@@ -97,7 +101,7 @@ Check AWS console for instances created and running
    cp /tmp/terraform-key.pem /
    ```
 
-6. **Change permissions of terraform-key.pem file**
+7. **Change permissions of terraform-key.pem file**
    
    SSH test will fail if permissions of .pem key are not secure enough
    ```bash
@@ -105,14 +109,14 @@ Check AWS console for instances created and running
    ```
 
 
-7. **Clone this repo to / directory in control-dev node**
+8. **Clone this repo to / directory in control-dev node**
    ```bash
    cd /
    git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
    git clone git@github.com:kubernetes-sigs/kubespray.git
    ```
 
-8. **Copy ip adresses of private ec2instances deployed by terraform**
+9. **Copy ip adresses of private ec2instances deployed by terraform**
    
    Enter each ip address into ipaddr-list.txt.
    Don't change format seen in .txt file
@@ -123,7 +127,7 @@ Check AWS console for instances created and running
    ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/ec2-private-ip.PNG) 
 
 
-9. **Install yum and python utilities**
+10. **Install yum and python utilities**
 
     Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
 
@@ -133,7 +137,7 @@ Check AWS console for instances created and running
     ./dependencies-install
     ```
 
-10. **Setup for Ansible playbook execution**
+11. **Setup for Ansible playbook execution**
     
      ```bash
      chmod 770 kubespray-deploy.sh
