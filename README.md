@@ -25,6 +25,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 
 
 ## Getting Started
+
 1. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
     
     ```bash
@@ -58,47 +59,36 @@ Check AWS console for instances created and running
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
 
 
+### SSH Access
+   Obtain a .pem terraform key from AWS, which is used to SSH into the public EC2 instance. .ppk key used for putty or windows.
 
-2. **Clone this repo to / directory in control-dev node**
+   Use the obtained key pair to SSH into the public EC2 instance. This instance can serve as a jumpbox to access private EC2 instances.
+
    ```bash
-   git clone git@github.com:odennav/terraform-k8s-aws_vpc.git
+   ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
    ```
+   Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
 
-3. **Copy ip adresses of private ec2instances deployed by terraform**
-   
-   Enter each ip address into ipaddr-list.txt.
-   Don't change format seen in .txt file
-   Ip addresses will be read by bash scripts.
-   For security reasons, don't show your private ips. The ones below are destroyed.
-   Picture shown below is just for clarity.
-   
-   ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2-private-ip.PNG) 
-  
-
-4. **Clone kubernetes-sigs kubespray repo to / directory in control node**
-   ```bash
-   git clone git@github.com:kubernetes-sigs/kubespray.git
-   ```
-
-5. **Change password of public ec2instance (control-dev) user**
+2. **Change password of public ec2instance (control-dev) user**
    ```bash
    sudo passwd
    ```
 
-6. **Update yum package manager**
+3. **Update yum package manager**
    ```bash
    cd /
    yum update -y
    yum upgrade -y
    ```
 
-7. **Confirm git was installed by terraform**
+4. **Confirm git was installed by terraform**
    ```bash
    git --version
    ```
 
 5. **Confirm terraform-key was transferred to public ec2instance by null provisioner**
-   Please note if .pem key not found, copy it manually. Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
+   Please note if .pem key not found, copy it manually. 
+   Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
    ```bash
    ls -la /tmp/terraform-key.pem
    cp /tmp/terraform-key.pem /
@@ -110,18 +100,31 @@ Check AWS console for instances created and running
    chmod 400 /tmp/terraform-key.pem
    ```
 
-### SSH Access
-   Obtain a .pem terraform key from AWS, which is used to SSH into the public EC2 instance. .ppk key used for putty or windows.
 
-   Use the obtained key pair to SSH into the public EC2 instance. This instance can serve as a jumpbox to access private EC2 instances.
-
+7. **Clone this repo to / directory in control-dev node**
    ```bash
-   ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
+   cd /
+   git clone git@github.com:odennav/terraform-k8s-aws_vpc.git
    ```
-   Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
+
+8. **Copy ip adresses of private ec2instances deployed by terraform**
+   
+   Enter each ip address into ipaddr-list.txt.
+   Don't change format seen in .txt file
+   Ip addresses will be read by bash scripts.
+   For security reasons, don't show your private ips. The ones below are destroyed.
+   Picture shown below is just for clarity.
+   
+   ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2-private-ip.PNG) 
+  
+
+9. **Clone kubernetes-sigs kubespray repo to / directory in control node**
+   ```bash
+   git clone git@github.com:kubernetes-sigs/kubespray.git
+   ```
 
 
-7. **Run dependencies-install.sh in public ec2instance to install necessary dependencies**
+10. **Run dependencies-install.sh in public ec2instance to install necessary dependencies**
     ```bash
     chmod 770 dependencies-install
     ./dependencies-install
@@ -131,8 +134,8 @@ Check AWS console for instances created and running
     **Setup system for Ansible playbook execution**
     
      ```bash
-        chmod 770 kubespray-deploy.sh
-        ./kubespray-env-build.sh
+     chmod 770 kubespray-deploy.sh
+     ./kubespray-env-build.sh
      ```
    
     This bash script copies SSH keys to private ec2 instances and updates Ansible inventory. Host inventory file edited and kubectl installed.
