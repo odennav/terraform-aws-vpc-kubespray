@@ -61,10 +61,7 @@ Check AWS console for instances created and running
 
    **SSH Access**
    
-   Obtain a .pem terraform key from AWS, which is used to SSH into the public EC2 instance.
-   ppk key used for putty in windows.
-
-   Use the obtained .pem key from AWS to SSH into the public EC2 instance.
+   Use .pem key from AWS to SSH into the public EC2 instance.
    IPv4 address of public EC2 instance will be shown in terraform outputs.
    
 
