@@ -57,7 +57,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
     ```
 Check AWS console for instances created and running
 
-![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
+![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/docs/ec2instances-shot.PNG)
 
 
    **SSH Access**
@@ -120,7 +120,7 @@ Check AWS console for instances created and running
    For security reasons, don't show your private ips. The ones below are destroyed.
    Picture shown below is just for clarity.
    
-   ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2-private-ip.PNG) 
+   ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/docs/ec2-private-ip.PNG) 
 
 
 9. **Install yum and python utilities**
