@@ -12,6 +12,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 ## Requirements
 
 - Install [Terraform](https://developer.hashicorp.com/terraform/install)
+- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - **Minimum required version of Kubernetes is v1.27**
 - **Ansible v2.14+, Jinja 2.11+ and python-netaddr** is installed on the machine that will run Ansible commands.
 - The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required.
@@ -107,7 +108,7 @@ Check AWS console for instances created and running
 7. **Clone this repo to / directory in control-dev node**
    ```bash
    cd /
-   git clone git@github.com:odennav/terraform-k8s-aws_vpc.git
+   git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
    git clone git@github.com:kubernetes-sigs/kubespray.git
    ```
 
