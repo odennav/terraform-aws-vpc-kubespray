@@ -13,6 +13,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 
 - Install [Terraform](https://developer.hashicorp.com/terraform/install)
 - Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- Generate key pair for connection to EC2 instances in AWS console. Name it 'terraform-key'. Choose 'RSA' key pair type and use .pem key file format.
 - **Minimum required version of Kubernetes is v1.27**
 - **Ansible v2.14+, Jinja 2.11+ and python-netaddr** is installed on the machine that will run Ansible commands.
 - The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required.
