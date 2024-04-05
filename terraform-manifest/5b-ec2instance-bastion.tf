@@ -5,7 +5,7 @@ module "ec2_public" {
   version = "5.6.0"
   
   name                   = "${var.environment}-Control"
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = data.aws_ami.rhel9_3.id
   instance_type          = var.instance_type
   key_name               = var.instance_keypair
   subnet_id              = module.vpc.public_subnets[0]

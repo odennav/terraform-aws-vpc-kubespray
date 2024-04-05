@@ -1,6 +1,6 @@
 #Get latest AMI ID for Ubuntu
 
-data "aws_ami" "rhel_9" {
+data "aws_ami" "rhel9_3" {
   most_recent = true
 
   filter {
@@ -20,7 +20,7 @@ data "aws_ami" "rhel_9" {
 
   filter {
     name   = "name"
-    values = ["ubuntu*"]
+    values = ["rhel9*"]
   }
 }
 

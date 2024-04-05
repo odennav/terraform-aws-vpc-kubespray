@@ -5,7 +5,7 @@ module "ec2_private" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.6.0"
 
-  ami                    = data.aws_ami.ubuntu.id
+  ami                    = data.aws_ami.rhel9_3.id
   instance_type          = var.instance_type
   key_name               = var.instance_keypair
   user_data = file("${path.module}/arrival_install")

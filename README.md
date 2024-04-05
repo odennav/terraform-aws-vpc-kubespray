@@ -22,16 +22,9 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
     should be configured in the target servers. Then the ansible_become flag
     or command parameters --become or -b should be specified.
 
-Hardware:
-These limits are safeguarded by Kubespray. Actual requirements for your workload can differ. For a sizing guide go to the [Building Large Clusters](https://kubernetes.io/docs/setup/cluster-large/#size-of-master-and-master-components) guide.
-
-- Master
-  - Memory: 4096 MB
-- Node
-  - Memory: 2048 MB
-
 
 ## Getting Started
+
 1. **Change password of public ec2instance (control-dev) user**
    ```bash
    sudo passwd
