@@ -59,7 +59,7 @@ Check AWS console for instances created and running
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2instances-shot.PNG)
 
 
-### SSH Access
+   **SSH Access**
    Obtain a .pem terraform key from AWS, which is used to SSH into the public EC2 instance. .ppk key used for putty or windows.
 
    Use the obtained key pair to SSH into the public EC2 instance. This instance can serve as a jumpbox to access private EC2 instances.
@@ -87,6 +87,7 @@ Check AWS console for instances created and running
    ```
 
 5. **Confirm terraform-key was transferred to public ec2instance by null provisioner**
+   
    Please note if .pem key not found, copy it manually. 
    Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
    ```bash
@@ -95,7 +96,8 @@ Check AWS console for instances created and running
    ```
 
 6. **Change permissions of terraform-key.pem file**
-   ssh test will fail if permissions of .pem key are not secure enough
+   
+   SSH test will fail if permissions of .pem key are not secure enough
    ```bash
    chmod 400 /tmp/terraform-key.pem
    ```
@@ -105,6 +107,7 @@ Check AWS console for instances created and running
    ```bash
    cd /
    git clone git@github.com:odennav/terraform-k8s-aws_vpc.git
+   git clone git@github.com:kubernetes-sigs/kubespray.git
    ```
 
 8. **Copy ip adresses of private ec2instances deployed by terraform**
@@ -116,15 +119,9 @@ Check AWS console for instances created and running
    Picture shown below is just for clarity.
    
    ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/ec2-private-ip.PNG) 
-  
-
-9. **Clone kubernetes-sigs kubespray repo to / directory in control node**
-   ```bash
-   git clone git@github.com:kubernetes-sigs/kubespray.git
-   ```
 
 
-10. **Run dependencies-install.sh in public ec2instance to install necessary dependencies**
+9. **Run dependencies-install.sh in public ec2instance to install necessary dependencies**
     ```bash
     chmod 770 dependencies-install
     ./dependencies-install
