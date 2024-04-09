@@ -39,34 +39,35 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 
 2. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
 
-    **Initializes terraform working directory**
+    Initializes terraform working directory
     
     ```console
     terraform init
     ```
 
-    **Validate the syntax of the terraform configuration files**
-    
+    Validate the syntax of the terraform configuration files
+
     ```console
     terraform validate
     ```
 
-    **Create an execution plan that describes the changes terraform will make to the infrastructure.**
+    Create an execution plan that describes the changes terraform will make to the infrastructure
     
     ```console
     terraform plan
     ```
 
-    **Apply the changes described in execution plan**
+    Apply the changes described in execution plan
     ```console
     terraform apply -auto-approve
     ```
 Check AWS console for instances created and running
 
+
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/ec2instances-shot.PNG)
 
 
-   **SSH Access**
+2. **SSH Access and New User Setup**
    
    Use .pem key from AWS to SSH into the public EC2 instance.
    IPv4 address of public EC2 instance will be shown in terraform outputs.
@@ -77,24 +78,54 @@ Check AWS console for instances created and running
    ```
    Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
 
-3. **Change password of public ec2instance (control-dev) user**
+   **Change root password(First-Login to control-dev)**
    ```bash
    sudo passwd
    ```
 
-4. **Update yum package manager**
+   Switch to root user.
+   Add new user to sudo group. In this case new user is 'odennav-admin'
+
+   ```bash
+   sudo adduser odennav-admin
+   sudo usermod -aG sudo odennav-admin
+   ```
+   You'll be prompted to set a password and provide additional information about the new    
+   user, such as full name, work phone, etc. This information is optional. Press 'Enter'   
+   to skip each prompt.
+    
+   ```bash
+   Test sudo privileges by switching to new user
+   su - odennav-admin
+   sudo ls /root
+   ```
+
+   You'll notice prompt to enter your user password.
+   To disable this prompt for every sudo command, implement the following:
+
+   Add sudoers file for odennav-admin
+   ```bash
+   cd /etc/sudoers.d/
+   echo "odennav-admin ALL=(ALL) NOPASSWD: ALL" > odennav-admin
+   ```
+   Set permissions for sudoers file
+   ```bash
+   chmod 0440 odennav-admin
+    ```
+
+   **Update yum package manager**
    ```bash
    cd /
    sudo yum update -y
    sudo yum upgrade -y
    ```
 
-5. **Confirm Git was installed by terraform**
+   **Confirm Git was installed by terraform**
    ```bash
    git --version
    ```
 
-6. **Confirm terraform-key was transferred to public ec2instance by null provisioner**
+   **Confirm terraform-key was transferred to public ec2instance by null provisioner**
    
    Please note if .pem key not found, copy it manually. 
    Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
@@ -103,7 +134,7 @@ Check AWS console for instances created and running
    cp /tmp/terraform-key.pem /
    ```
 
-7. **Change permissions of terraform-key.pem file**
+   **Change permissions of terraform-key.pem file**
    
    SSH test will fail if permissions of .pem key are not secure enough
    ```bash
@@ -111,14 +142,14 @@ Check AWS console for instances created and running
    ```
 
 
-8. **Clone this repository to control-dev node**
+3. **Clone this repository to control-dev node**
    ```bash
    cd /
    git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
    git clone git@github.com:kubernetes-sigs/kubespray.git
    ```
 
-9. **Copy ip adresses of private ec2instances deployed by terraform**
+4. **Copy IPv4 adresses of private EC2-instances deployed by terraform**
    
    Enter each ip address into ipaddr-list.txt.
    Don't change format seen in .txt file
@@ -129,7 +160,7 @@ Check AWS console for instances created and running
    ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/ec2-private-ip.PNG) 
 
 
-10. **Install yum and python utilities**
+5. **Install Yum and Python utilities**
 
     Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
 
@@ -139,7 +170,7 @@ Check AWS console for instances created and running
     ./dependencies-install
     ```
 
-11. **Setup for Ansible playbook execution**
+6. **Setup for Ansible playbook execution**
     
      ```bash
      chmod 770 kubespray-deploy.sh
@@ -147,7 +178,8 @@ Check AWS console for instances created and running
      ```
    
     This bash script copies SSH keys to private ec2 instances and updates Ansible inventory. Host inventory file edited and kubectl installed.
-    Change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
+    
+    Finaly, change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
    
 
     ```bash
