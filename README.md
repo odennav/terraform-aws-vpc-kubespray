@@ -41,24 +41,24 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 
     **Initializes terraform working directory**
     
-    ```bash
+    ```console
     terraform init
     ```
 
     **Validate the syntax of the terraform configuration files**
     
-    ```bash
+    ```console
     terraform validate
     ```
 
     **Create an execution plan that describes the changes terraform will make to the infrastructure.**
     
-    ```bash
+    ```console
     terraform plan
     ```
 
     **Apply the changes described in execution plan**
-    ```bash
+    ```console
     terraform apply -auto-approve
     ```
 Check AWS console for instances created and running
@@ -85,11 +85,11 @@ Check AWS console for instances created and running
 4. **Update yum package manager**
    ```bash
    cd /
-   yum update -y
-   yum upgrade -y
+   sudo yum update -y
+   sudo yum upgrade -y
    ```
 
-5. **Confirm git was installed by terraform**
+5. **Confirm Git was installed by terraform**
    ```bash
    git --version
    ```
@@ -111,7 +111,7 @@ Check AWS console for instances created and running
    ```
 
 
-8. **Clone this repo to / directory in control-dev node**
+8. **Clone this repository to control-dev node**
    ```bash
    cd /
    git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
@@ -158,9 +158,11 @@ Check AWS console for instances created and running
 
 ## Destroying Resources(Optional)
 To tear down the infrastructure created by Terraform. Reduce costs incurred from AWS due to creation of resources.
-  ```bash
+
+  ```console
   terraform destroy
   ```
+
 
 
 Enjoy!
