@@ -170,7 +170,7 @@ Check AWS console for instances created and running
     ./dependencies-install
     ```
 
-6. **Setup for Ansible playbook execution**
+6. **Setup for Nodes for Kubernetes Cluster**
     
      ```bash
      chmod 770 kubespray-deploy.sh
