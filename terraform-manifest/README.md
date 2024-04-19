@@ -28,7 +28,7 @@
 - Outputs security group information for public bastion hosts and private EC2 instances.
 
 ### 4-datasource-ami.tf:
-- Retrieves the latest Amazon Linux 2 AMI ID.
+- Retrieves the latest RHEL9 ID.
 
 ### 5a-ec2instance-variables.tf:
 - Defines variables for EC2 instances, including type, key pair, and instance count.
@@ -36,18 +36,15 @@
 ### 5b-ec2instance-bastion.tf:
 - Defines module for public ec2-instance
 
-### 5c-ec2instance-private.tf:
-- Defines module for private ec2-instance
+### 5c-ec2instance-master.tf:
+- Defines module for master node.
 
 ### 5d-ec2instance-outputs.tf:
 - Outputs information about public and private EC2 instances. Insert ip addresses for private ec2instances into ipaddr-list.txt.
 list of IPs used by bash scripts for kubernetes deployment.
 
-### 5b-ec2instance-bastion.tf:
-- Creates an EC2 instance for the public bastion host.
-
-### 5c-ec2instnce-private.tf:
-- Creates EC2 instances for the private subnet with count specified.
+### 5e-ec2instance-workers.tf:
+- Creates  EC2 instances for the worker nodes.
 
 ### 6-dbinstance-private.tf:
 - Creates EC2 instances for the database subnet with count specified.
