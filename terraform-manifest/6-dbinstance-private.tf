@@ -31,10 +31,3 @@ module "ec2_private_db" {
   name = "db-${each.key}"
 }
 
-
-# ELEMENT Function
-# terraform console 
-# element(["kalyan", "reddy", "daida"], 0)
-# element(["kalyan", "reddy", "daida"], 1)
-# element(["kalyan", "reddy", "daida"], 2)
-

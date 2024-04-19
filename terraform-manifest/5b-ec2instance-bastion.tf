@@ -13,13 +13,6 @@ module "ec2_public" {
   vpc_security_group_ids = [module.public_bastion_sg.security_group_id]
   tags = local.common_tags
 
-  #monitoring             = true
-  #instance_count         = 9
-  #for_each = toset(["0", "1"])
-  #subnet_id =  element(module.vpc.public_subnets, tonumber(each.key))
-  #name = "instance-${each.key}"
-  #user_data = file("${path.module}/arrival_install")
-
   
 }
 

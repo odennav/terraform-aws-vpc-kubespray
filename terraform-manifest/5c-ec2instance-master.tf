@@ -15,8 +15,6 @@ module "ec2_master" {
   name = "node-${each.key}"
   tags = local.common_tags
 
-  #instance_count         = var.private_instance_count
-  #subnet_ids = [module.vpc.private_subnets[0],module.vpc.private_subnets[1] ]
 }
 
 
