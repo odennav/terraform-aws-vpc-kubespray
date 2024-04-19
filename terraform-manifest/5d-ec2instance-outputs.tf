@@ -13,18 +13,33 @@ output "ec2_bastion_public_ip" {
   value       = module.ec2_public.public_ip 
 }
 
-# Private EC2 Instances
-## ec2_private_instance_ids
-output "ec2_private_instance_ids" {
+# Private EC2 Master Instance
+## ec2_master_instance_id
+output "ec2_master_instance_ids" {
   description = "List of IDs of instances"
-  value = [for ec2private in module.ec2_private: ec2private.id ]   
+  value = [for ec2master in module.ec2_master: ec2master.id ]   
 }
 
-## ec2_private_ip
-output "ec2_private_ip" {
+## ec2_master_ip
+output "ec2_master_ip" {
   description = "List of private IP addresses assigned to the instances"
-  value = [for ec2private in module.ec2_private: ec2private.private_ip ]  
+  value = [for ec2master in module.ec2_master: ec2master.private_ip ]  
 }
+
+
+# Private EC2 Workers Instances
+## ec2_workers_instance_id
+output "ec2_workers_instance_ids" {
+  description = "List of IDs of instances"
+  value = [for ec2worker in module.ec2_workers: ec2workers.id ]
+}
+
+## ec2_workers_ip
+output "ec2_workers_ip" {
+  description = "List of private IP addresses assigned to the instances"
+  value = [for ec2worker in module.ec2_workers: ec2workers.private_ip ]
+}
+
 
 
 # Private EC2_DB Instances
