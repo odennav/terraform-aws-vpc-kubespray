@@ -10,7 +10,7 @@ module "ec2_workers" {
   key_name               = var.instance_keypair
   user_data = file("${path.module}/arrival_install")
   vpc_security_group_ids = [module.private_sg.security_group_id]
-  for_each = toset(["1", "2"])
+  for_each = toset(["1", "2", "3", "4", "5"])
   subnet_id =  element(module.vpc.private_subnets, tonumber(each.key))
   name = "k8snode-${each.key}"
   tags = local.common_tags
