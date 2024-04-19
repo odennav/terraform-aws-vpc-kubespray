@@ -12,7 +12,7 @@ module "ec2_master" {
   vpc_security_group_ids = [module.private_sg.security_group_id]
   for_each = toset(["1"])
   subnet_id =  element(module.vpc.private_subnets, tonumber(each.key))
-  name = "node-${each.key}"
+  name = "k8smaster-${each.key}"
   tags = local.common_tags
 
 }
