@@ -151,14 +151,12 @@ Check AWS console for instances created and running
 
 4. **Copy IPv4 adresses of private EC2-instances deployed by terraform**
    
-   Enter each ip address into ipaddr-list.txt.
-   Don't change format seen in .txt file
-   Ip addresses will be read by bash scripts.
-   For security reasons, don't show your private ips. The ones below are destroyed.
-   Picture shown below is just for clarity.
+   Check ip addresses in `inventory` file and input them in `bash-scripts/ipaddr-list.txt`
    
-   ![](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/ec2-private-ip.PNG) 
-
+   Don't change format seen in .txt file, ip addresses will be read by bash scripts.
+   For security reasons, don't show your private ips. The ones below are destroyed.
+   
+   
 
 5. **Install Yum and Python utilities**
 
