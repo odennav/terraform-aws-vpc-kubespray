@@ -29,7 +29,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 ## Getting Started
 
 
-1. **Clone this repo to local machine**
+1. **Clone this Repo to Local machine**
    ```bash
    cd /
    git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
@@ -37,7 +37,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
    ```
 
 
-2. **Execute these terraform commands sequentially on your local machine to create the AWS infrastructure.**
+2. **Execute these Terraform commands sequentially on your Local machine to create the AWS infrastructure.**
 
     Initializes terraform working directory
     
@@ -67,7 +67,7 @@ Check AWS console for instances created and running
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/ec2instances-shot.PNG)
 
 
-2. **SSH Access and New User Setup**
+2. **SSH access and New user setup**
    
    Use .pem key from AWS to SSH into the public EC2 instance.
    IPv4 address of public EC2 instance will be shown in terraform outputs.
@@ -125,7 +125,7 @@ Check AWS console for instances created and running
    git --version
    ```
 
-   **Confirm terraform-key was transferred to public ec2instance by null provisioner**
+   **Confirm terraform-key was transferred to public EC2 instance by null provisioner**
    
    Please note if .pem key not found, copy it manually. 
    Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
@@ -142,20 +142,21 @@ Check AWS console for instances created and running
    ```
 
 
-3. **Clone this repository to control-dev node**
+3. **Clone this Repository to control-dev node**
    ```bash
    cd /
    git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
    git clone git@github.com:kubernetes-sigs/kubespray.git
    ```
 
-4. **Copy IPv4 adresses of private EC2-instances deployed by terraform**
+4. **Copy IPv4 adresses of private EC2 instances deployed by Terraform**
    
-   Check ip addresses in `inventory` file and input them in `bash-scripts/ipaddr-list.txt`
+   Check IPv4 addresses in `inventory` file and input them in `bash-scripts/ipaddr-list.txt`
    
    Don't change format seen in .txt file, ip addresses will be read by bash scripts.
-   For security reasons, don't show your private ips. The ones below are destroyed.
    
+   For security reasons, don't share your private ips. 
+
    
 
 5. **Install Yum and Python utilities**
@@ -168,7 +169,7 @@ Check AWS console for instances created and running
     ./dependencies-install
     ```
 
-6. **Setup for Nodes for Kubernetes Cluster**
+6. **Setup nodes for Kubernetes cluster**
     
      ```bash
      chmod 770 kubespray-deploy.sh
