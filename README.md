@@ -22,8 +22,8 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 - The **firewalls** are **not managed**, you'll need to implement your own rules the way you used to.
     in order to avoid any issue during deployment you should disable your firewall.
 - If kubespray is run from non-root user account, correct privilege escalation method
-    should be configured in the target servers. Then the ansible_become flag
-    or command parameters --become or -b should be specified.
+    should be configured in the target servers. Then the `ansible_become` flag
+    or command parameters `--become` or `-b` should be specified.
 
 
 ## Getting Started
@@ -183,7 +183,7 @@ Check AWS console for instances created and running
 
     ```bash
     cd /kubespray
-    ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=root cluster.yml
+    ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=odennav-admin cluster.yml
     ```
 
 
