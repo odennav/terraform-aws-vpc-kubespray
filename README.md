@@ -1,4 +1,4 @@
-## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-amazon-web-services-48.png)   Provision AWS VPC & Kubernetes Cluster in 3-Tier Arch   ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-kubernetes-48.png)
+## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-amazon-web-services-48.png)   Provision AWS VPC & Deploy Kubernetes Cluster in 3-Tier Arch   ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-kubernetes-48.png)
 
 This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public,database subnets.
 Bastion, private and database EC2 instances created for VPC.
@@ -14,12 +14,12 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 - Install [Terraform](https://developer.hashicorp.com/terraform/install)
 - Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - Generate key pair for connection to EC2 instances in AWS console. Name it 'terraform-key'. Choose 'RSA' key pair type and use .pem key file format.
-- **Minimum required version of Kubernetes is v1.27**
-- **Ansible v2.14+, Jinja 2.11+ and python-netaddr** is installed on the machine that will run Ansible commands.
+- Minimum required version of Kubernetes is **v1.27**
+- **Ansible v2.14+**, **Jinja v2.11+** and **python-netaddr** is installed on the machine that will run Ansible commands.
 - The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required.
 - The target servers are configured to allow **IPv4 forwarding**.
 - If using IPv6 for pods and services, the target servers are configured to allow **IPv6 forwarding**.
-- The **firewalls are not managed**, you'll need to implement your own rules the way you used to.
+- The **firewalls** are **not managed**, you'll need to implement your own rules the way you used to.
     in order to avoid any issue during deployment you should disable your firewall.
 - If kubespray is run from non-root user account, correct privilege escalation method
     should be configured in the target servers. Then the ansible_become flag
