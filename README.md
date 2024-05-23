@@ -32,7 +32,7 @@ Bash scripts used to automate deployment of kubernetes cluster to private EC2 in
 1. **Clone this Repo to Local machine**
    ```bash
    cd /
-   git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
+   git clone git@github.com:odennav/terraform-aws-ec2-kubernetes.git
    cd terraform-kubernetes-aws-ec2/terraform-manifest
    ```
 
@@ -145,7 +145,7 @@ Check AWS console for instances created and running
 3. **Clone this Repository to control-dev node**
    ```bash
    cd /
-   git clone git@github.com:odennav/terraform-kubernetes-aws-ec2.git
+   git clone git@github.com:odennav/terraform-aws-ec2-kubernetes.git
    git clone git@github.com:kubernetes-sigs/kubespray.git
    ```
 
