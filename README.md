@@ -1,199 +1,189 @@
-## ![aws](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-amazon-web-services-48.png)   Provision AWS VPC & Deploy Kubernetes Cluster in 3-Tier Arch   ![k8s](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/icons8-kubernetes-48.png)
+##  Provision AWS VPC & Deploy a Kubernetes Cluster  
 
-This project deploys a 3-Tier Architecture on AWS using Terraform, creating a VPC with private, public,database subnets.
-Bastion, private and database EC2 instances created for VPC.
+This project uses terraform to deploy a 3-Tier Architecture on AWS which consists of the following:
 
-NAT gateway created for private EC2 instances to communicate with the internet and elastic IPs are assigned for NAT gateways.
+- VPC
+
+- Private, public and database subnets.
+
+- Bastion, private and database EC2 instances.
+
+- NAT gateway for private EC2 instances to communicate with the internet
+
+- Elastic IPs assigned for NAT gateways.
+
 No routes created from NAT gateway to database instances.
 
-Bash scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
+Shell scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
 
+EKS cluster not deployed due to financial costs.
 
 ## Requirements
 
 - Install [Terraform](https://developer.hashicorp.com/terraform/install)
-- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-- Generate key pair for connection to EC2 instances in AWS console. Name it 'terraform-key'. Choose 'RSA' key pair type and use .pem key file format.
-- Minimum required version of Kubernetes is **v1.27**
-- **Ansible v2.14+**, **Jinja v2.11+** and **python-netaddr** is installed on the machine that will run Ansible commands.
-- The target servers must have **access to the Internet** in order to pull docker images. Otherwise, additional configuration is required.
-- The target servers are configured to allow **IPv4 forwarding**.
-- If using IPv6 for pods and services, the target servers are configured to allow **IPv6 forwarding**.
-- The **firewalls** are **not managed**, you'll need to implement your own rules the way you used to.
-    in order to avoid any issue during deployment you should disable your firewall.
-- If kubespray is run from non-root user account, correct privilege escalation method
-    should be configured in the target servers. Then the `ansible_become` flag
-    or command parameters `--become` or `-b` should be specified.
 
+- Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+- Generate key pair for connection to EC2 instances in AWS console. Name it `terraform-key`. Choose `RSA` key pair type and use `.pem` key file format.
+
+- Minimum required version of Kubernetes is **`v1.27`**
 
 ## Getting Started
 
 
-1. **Clone this Repo to Local machine**
-   ```bash
-   cd /
-   git clone git@github.com:odennav/terraform-aws-ec2-kubernetes.git
-   cd terraform-kubernetes-aws-ec2/terraform-manifest
-   ```
+Clone this repository to local machine
+```bash
+cd /
+git clone git@github.com:odennav/terraform-aws-vpc-kubespray.git
+cd terraform-kubernetes-aws-vpc-kubespray/terraform
+```
 
 
-2. **Execute these Terraform commands sequentially on your Local machine to create the AWS infrastructure.**
+Implement terraform commands sequentially in local machine to create the AWS infrastructure.
 
-    Initializes terraform working directory
-    
-    ```console
-    terraform init
-    ```
+Initialize terraform working directory
 
-    Validate the syntax of the terraform configuration files
+```bash
+terraform init
+```
 
-    ```console
-    terraform validate
-    ```
+Validate the syntax of the terraform configuration files
+```console
+terraform validate
+```
 
-    Create an execution plan that describes the changes terraform will make to the infrastructure
-    
-    ```console
-    terraform plan
-    ```
+Create an execution plan that describes the changes terraform will make to the infrastructure
+```console
+terraform plan
+```
 
-    Apply the changes described in execution plan
-    ```console
-    terraform apply -auto-approve
-    ```
+Apply the changes described in execution plan
+```console
+terraform apply -auto-approve
+```
 Check AWS console for instances created and running
 
 
 ![ec2](https://github.com/odennav/terraform-k8s-aws_ec2/blob/main/docs/ec2instances-shot.PNG)
 
-
-2. **SSH access and New user setup**
+-----
    
-   Use .pem key from AWS to SSH into the public EC2 instance.
-   IPv4 address of public EC2 instance will be shown in terraform outputs.
+Use the `.pem` key from AWS to SSH into the public EC2 instance.
+
+IPv4 address of public EC2 instance will be shown in terraform outputs.
+```bash
+ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
+```
+Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
+
+Change root password upon first-Login to `control-dev` machine
+```bash
+sudo passwd
+```
+
+Switch to root user.
+
+Add new user to sudo group. In this case new user is `odennav-admin`
+```bash
+sudo adduser odennav-admin
+sudo usermod -aG sudo odennav-admin
+```
+
+Test sudo privileges by switching to new user
+```bash
+su - odennav-admin
+sudo ls /root
+```
+
+You'll notice prompt to enter your user password.
+
+To disable this prompt for every sudo command, implement the following:
+
+Add sudoers file for odennav-admin
+```bash
+cd /etc/sudoers.d/
+echo "odennav-admin ALL=(ALL) NOPASSWD: ALL" > odennav-admin
+```
+Set permissions for sudoers file
+```bash
+chmod 0440 odennav-admin
+```
+
+Update yum package manager
+```bash
+sudo yum update -y
+sudo yum upgrade -y
+```
+
+Confirm Git was installed by terraform**
+```bash
+git --version
+```
+
+Confirm terraform-key was transferred to public EC2 instance by null provisioner
    
+key should be copied to another folder because it will be deleted if node is restarted or shutdown
+```bash
+ls -la /tmp/terraform-key.pem
+cp /tmp/terraform-key.pem /
+```
 
-   ```bash
-   ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
-   ```
-   Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
+Change permissions of terraform-key.pem file
+   
+SSH test will fail if permissions of .pem key are not secure enough
+```bash
+chmod 400 /tmp/terraform-key.pem
+```
 
-   **Change root password(First-Login to control-dev)**
-   ```bash
-   sudo passwd
-   ```
 
-   Switch to root user.
-   Add new user to sudo group. In this case new user is 'odennav-admin'
+Cone this repository to `control-dev` node
+```bash
+cd /
+git clone git@github.com:odennav/terraform-aws-vpc-kubespray.git
+git clone git@github.com:kubernetes-sigs/kubespray.git
+```
 
-   ```bash
-   sudo adduser odennav-admin
-   sudo usermod -aG sudo odennav-admin
-   ```
-   You'll be prompted to set a password and provide additional information about the new    
-   user, such as full name, work phone, etc. This information is optional. Press 'Enter'   
-   to skip each prompt.
+Copy IPv4 adresses of private EC2 instances deployed by Terraform
+   
+Check IPv4 addresses in `inventory` file and input them in `bash-scripts/ipaddr-list.txt`
+   
+Don't change format seen in .txt file, ip addresses will be read by bash scripts.
+   
+For security reasons, don't share your private ips. 
+
+-----
+
+Install yum and python utilities
+
+```bash
+sudo chmod 770 dependencies-install
+sudo ./dependencies-install
+```
+
+Setup nodes for Kubernetes cluster
     
-   ```bash
-   Test sudo privileges by switching to new user
-   su - odennav-admin
-   sudo ls /root
-   ```
-
-   You'll notice prompt to enter your user password.
-   To disable this prompt for every sudo command, implement the following:
-
-   Add sudoers file for odennav-admin
-   ```bash
-   cd /etc/sudoers.d/
-   echo "odennav-admin ALL=(ALL) NOPASSWD: ALL" > odennav-admin
-   ```
-   Set permissions for sudoers file
-   ```bash
-   chmod 0440 odennav-admin
-    ```
-
-   **Update yum package manager**
-   ```bash
-   cd /
-   sudo yum update -y
-   sudo yum upgrade -y
-   ```
-
-   **Confirm Git was installed by terraform**
-   ```bash
-   git --version
-   ```
-
-   **Confirm terraform-key was transferred to public EC2 instance by null provisioner**
+```bash
+sudo chmod 770 kubespray-deploy.sh
+sudo ./kubespray-env-build.sh
+```
    
-   Please note if .pem key not found, copy it manually. 
-   Also key can be copied to another folder because it will be deleted if node is restarted or shutdown
-   ```bash
-   ls -la /tmp/terraform-key.pem
-   cp /tmp/terraform-key.pem /
-   ```
-
-   **Change permissions of terraform-key.pem file**
+Change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
    
-   SSH test will fail if permissions of .pem key are not secure enough
-   ```bash
-   chmod 400 /tmp/terraform-key.pem
-   ```
+```bash
+cd /kubespray
+ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=odennav-admin cluster.yml
+```
 
-
-3. **Clone this Repository to control-dev node**
-   ```bash
-   cd /
-   git clone git@github.com:odennav/terraform-aws-ec2-kubernetes.git
-   git clone git@github.com:kubernetes-sigs/kubespray.git
-   ```
-
-4. **Copy IPv4 adresses of private EC2 instances deployed by Terraform**
-   
-   Check IPv4 addresses in `inventory` file and input them in `bash-scripts/ipaddr-list.txt`
-   
-   Don't change format seen in .txt file, ip addresses will be read by bash scripts.
-   
-   For security reasons, don't share your private ips. 
-
-   
-
-5. **Install Yum and Python utilities**
-
-    Updating Yum, installing necessary dependencies, and ensuring Python compatibility.
-
-
-    ```bash
-    chmod 770 dependencies-install
-    ./dependencies-install
-    ```
-
-6. **Setup nodes for Kubernetes cluster**
-    
-     ```bash
-     chmod 770 kubespray-deploy.sh
-     ./kubespray-env-build.sh
-     ```
-   
-    This bash script copies SSH keys to private ec2 instances and updates Ansible inventory. Host inventory file edited and kubectl installed.
-    
-    Finaly, change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
-   
-
-    ```bash
-    cd /kubespray
-    ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=odennav-admin cluster.yml
-    ```
-
+-----
 
 ## Destroying Resources(Optional)
-To tear down the infrastructure created by Terraform. Reduce costs incurred from AWS due to creation of resources.
 
-  ```console
-  terraform destroy
-  ```
+To tear down the infrastructure created by Terraform.
 
+```console
+terraform destroy
+```
 
+-----
 
 Enjoy!
