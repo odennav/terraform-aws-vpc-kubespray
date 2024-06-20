@@ -1,6 +1,6 @@
-##  Provision AWS VPC & Deploy a Kubernetes Cluster  
+##  Provision VPC in AWS & Deploy a Kubernetes Cluster  
 
-This project uses terraform to deploy a 3-Tier Architecture on AWS which consists of the following:
+This project uses Terraform to deploy a 3-Tier Architecture on AWS which consists of the following:
 
 - Virtual Private Cloud
 
