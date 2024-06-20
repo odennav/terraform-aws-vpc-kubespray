@@ -16,7 +16,9 @@ No routes created from NAT gateway to database instances.
 
 Shell scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
 
-EKS cluster not deployed due to financial costs.
+Inventory list for ansible is dynamically build with `.tpl` template.
+
+EKS cluster is best for production but not deployed due to financial costs.
 
 ## Requirements
 
@@ -48,17 +50,17 @@ terraform init
 ```
 
 Validate the syntax of the terraform configuration files
-```console
+```bash
 terraform validate
 ```
 
 Create an execution plan that describes the changes terraform will make to the infrastructure
-```console
+```bash
 terraform plan
 ```
 
 Apply the changes described in execution plan
-```console
+```bash
 terraform apply -auto-approve
 ```
 Check AWS console for instances created and running
@@ -74,7 +76,7 @@ IPv4 address of public EC2 instance will be shown in terraform outputs.
 ```bash
 ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
 ```
-Its possible to use public EC2 instance as a jumpbox to securely SSH into private EC2 instances within the VPC.
+Its possible to use public EC2 instance as a jumpbox to ssh into private EC2 instances within the VPC.
 
 Change root password upon first-Login to `control-dev` machine
 ```bash
@@ -85,8 +87,8 @@ Switch to root user.
 
 Add new user to sudo group. In this case new user is `odennav-admin`
 ```bash
-sudo adduser odennav-admin
-sudo usermod -aG sudo odennav-admin
+sudo useradd odennav-admin
+sudo usermod -aG wheel odennav-admin
 ```
 
 Test sudo privileges by switching to new user
@@ -99,14 +101,14 @@ You'll notice prompt to enter your user password.
 
 To disable this prompt for every sudo command, implement the following:
 
-Add sudoers file for odennav-admin
+Add sudoers file for `odennav-admin` user
 ```bash
 cd /etc/sudoers.d/
-echo "odennav-admin ALL=(ALL) NOPASSWD: ALL" > odennav-admin
+sudo echo "odennav-admin ALL=(ALL) NOPASSWD: ALL" > odennav-admin
 ```
 Set permissions for sudoers file
 ```bash
-chmod 0440 odennav-admin
+sudo chmod 0440 odennav-admin
 ```
 
 Update yum package manager
@@ -122,7 +124,7 @@ git --version
 
 Confirm terraform-key was transferred to public EC2 instance by null provisioner
    
-key should be copied to another folder because it will be deleted if node is restarted or shutdown
+`terraform-key.pem` should be copied to another folder because it will be deleted if node is restarted or shutdown
 ```bash
 ls -la /tmp/terraform-key.pem
 cp /tmp/terraform-key.pem /
@@ -130,13 +132,13 @@ cp /tmp/terraform-key.pem /
 
 Change permissions of terraform-key.pem file
    
-SSH test will fail if permissions of .pem key are not secure enough
+SSH test will fail if permissions of `.pem` key are not secure enough
 ```bash
-chmod 400 /tmp/terraform-key.pem
+sudo chmod 400 /tmp/terraform-key.pem
 ```
 
 
-Cone this repository to `control-dev` node
+Clone this repository to `control-dev` node
 ```bash
 cd /
 git clone git@github.com:odennav/terraform-aws-vpc-kubespray.git
@@ -147,7 +149,7 @@ Copy IPv4 adresses of private EC2 instances deployed by Terraform
    
 Check IPv4 addresses in `inventory` file and input them in `bash-scripts/ipaddr-list.txt`
    
-Don't change format seen in .txt file, ip addresses will be read by bash scripts.
+Don't change format seen in `.txt` file, ip addresses will be read by the shell scripts.
    
 For security reasons, don't share your private ips. 
 
@@ -167,7 +169,7 @@ sudo chmod 770 kubespray-deploy.sh
 sudo ./kubespray-env-build.sh
 ```
    
-Change directory to your local kubespray repo and execute cluster playbook to deploy kubernetes cluster.
+Change directory to your local kubespray repository and execute the ansilbe playbook to deploy kubernetes cluster with kubespray
    
 ```bash
 cd /kubespray
@@ -180,7 +182,7 @@ ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=odenna
 
 To tear down the infrastructure created by Terraform.
 
-```console
+```bash
 terraform destroy
 ```
 
