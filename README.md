@@ -2,13 +2,15 @@
 
 This project uses terraform to deploy a 3-Tier Architecture on AWS which consists of the following:
 
-- VPC
+- Virtual Private Cloud
 
 - Private, public and database subnets.
 
 - Bastion, private and database EC2 instances.
 
-- Internet and NAT gateway for all EC2 instances to communicate with the internet.
+- Internet for Bastion EC2 instances.
+
+- NAT gateway for private EC2 instances to communicate with the internet.
 
 - Elastic IPs assigned for NAT gateways.
 
@@ -18,9 +20,9 @@ Shell scripts used to automate deployment of kubernetes cluster to private EC2 i
 
 Inventory list for ansible is dynamically build with `.tpl` template.
 
-EKS cluster is best for production but not deployed due to financial costs.
+Amazon EKS cluster is best for production but not deployed due to financial costs.
 
-## Requirements
+### Requirements
 
 - Install [Terraform](https://developer.hashicorp.com/terraform/install)
 
@@ -30,7 +32,7 @@ EKS cluster is best for production but not deployed due to financial costs.
 
 - Minimum required version of Kubernetes is **`v1.27`**
 
-## Getting Started
+### Getting Started
 
 
 Clone this repository to local machine
