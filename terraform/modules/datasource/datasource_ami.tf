@@ -1,3 +1,13 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+}
+
 #Get latest AMI ID for Ubuntu
 
 data "aws_ami" "rhel9_3" {

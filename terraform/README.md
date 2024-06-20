@@ -1,54 +1,54 @@
 ## Overview of Terraform Files
 
-### 1a-versions.tf: 
+#### main.tf 
 - Specifies the required Terraform version and the AWS provider version.
 
-### 1b-generic-variables.tf:
+#### generic_variables.tf
 - Defines input variables such as the AWS region, environment, and business division.
 
-### 1c-local-values.tf:
+#### local_values.tf
 - Specifies local values used in Terraform, including owners, environment, and name.
 
-### 2a-vpc-variables.tf:
+#### vpc_variables.tf
 - Utilizes input variables to provision VPC with specified configurations.
 
-### 2b-vpc-module.tf:
+#### vpc_module.tf
 - Defines a Terraform module to create the VPC with configurable parameters like VPC name, CIDR blocks, availability zones, and subnets.
 
-### 2c-vpc-outputs.tf:
+#### vpc_outputs.tf
 - Outputs VPC-related information such as VPC ID, CIDR blocks, subnets, NAT gateway IPs, and availability zones.
 
-### 3b-securitygroup-bastionsg.tf:
+#### securitygroup_bastionsg.tf
 - Creates a security group for the public bastion host.
 
-### 3c-securitygroup-privatesg.tf:
+#### securitygroup_privatesg.tf
 - Creates a security group for private EC2 instances.
 
-### 3d-securitygroup-outputs.tf:
+#### securitygroup_outputs.tf
 - Outputs security group information for public bastion hosts and private EC2 instances.
 
-### 4-datasource-ami.tf:
+#### datasource_ami.tf
 - Retrieves the latest RHEL9 ID.
 
-### 5a-ec2instance-variables.tf:
+#### ec2instance_variables.tf
 - Defines variables for EC2 instances, including type, key pair, and instance count.
 
-### 5b-ec2instance-bastion.tf:
+#### ec2instance_bastion.tf
 - Defines module for public ec2-instance
 
-### 5c-ec2instance-master.tf:
+#### ec2instance_master.tf
 - Defines module for master node.
 
-### 5d-ec2instance-outputs.tf:
+#### ec2instance_outputs.tf
 - Outputs information about public and private EC2 instances. Insert ip addresses for private ec2instances into ipaddr-list.txt.
 list of IPs used by bash scripts for kubernetes deployment.
 
-### 5e-ec2instance-workers.tf:
+#### ec2instance_workers.tf
 - Creates  EC2 instances for the worker nodes.
 
-### 6-dbinstance-private.tf:
+#### dbinstance_private.tf
 - Creates EC2 instances for the database subnet with count specified.
 
-### 7-elasticip.tf:
+#### elasticip.tf
 - Creates an Elastic IP for the NAT gateway.
 

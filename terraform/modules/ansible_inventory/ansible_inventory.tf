@@ -1,3 +1,13 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+}
+
 
 resource "local_file" "ansible_inventory" {
     content = templatefile("../artifacts/k8s_hosts.tpl",

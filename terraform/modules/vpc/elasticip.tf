@@ -1,3 +1,13 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+}
+
 # Create Elastic IP for Bastion Host
 # Resource - depends_on Meta-Argument
 resource "aws_eip" "bastion_eip" {

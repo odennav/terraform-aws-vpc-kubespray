@@ -1,3 +1,13 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+}
+
 # AWS EC2 Instance Terraform Module
 # Bastion Host - EC2 Instance that will be created in VPC Public Subnet
 module "ec2_public" {
@@ -12,7 +22,6 @@ module "ec2_public" {
   user_data = file("${path.module}/arrival_install")
   vpc_security_group_ids = [module.public_bastion_sg.security_group_id]
   tags = local.common_tags
-
   
 }
 

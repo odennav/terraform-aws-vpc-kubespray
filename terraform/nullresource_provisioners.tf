@@ -1,6 +1,8 @@
 # Create a Null Resource and Provisioners
+
 resource "null_resource" "name" {
   depends_on = [module.ec2_public]
+ 
   # Connection Block for Provisioners to connect: to EC2 Instance
   connection {
     type     = "ssh"
@@ -16,12 +18,15 @@ resource "null_resource" "name" {
     destination = "/tmp/terraform-key.pem"
   }  
 }
-# ## Remote Exec Provisioner: Using remote-exec provisioner fix the private key permissions on Bastion Host
+
+
+# Remote Exec Provisioner: Using remote-exec provisioner fix the private key permissions on Bastion Host
+
 #   provisioner "remote-exec" {
 #     inline = [
 #       "sudo yum update -y"
 #     ]
 #   }
 # }
-#Creation Time Provisioners - By default they are created during resource creations (terraform apply)
-#Destory Time Provisioners - Will be executed during "terraform destroy" command (when = destroy)
+
+

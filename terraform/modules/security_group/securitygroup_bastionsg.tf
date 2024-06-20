@@ -1,3 +1,13 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+}
+
 # AWS EC2 Security Group Terraform Module
 # Security Group for Public Bastion Host
 module "public_bastion_sg" {
