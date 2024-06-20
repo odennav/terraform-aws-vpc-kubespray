@@ -22,11 +22,12 @@ resource "null_resource" "name" {
 
 # Remote Exec Provisioner: Using remote-exec provisioner fix the private key permissions on Bastion Host
 
-#   provisioner "remote-exec" {
-#     inline = [
-#       "sudo yum update -y"
-#     ]
-#   }
-# }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y"
+      "sudo yum install -y git"
+    ]
+  }
+}
 
 
