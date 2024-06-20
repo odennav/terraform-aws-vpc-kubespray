@@ -80,7 +80,7 @@ ssh -i private-key/terraform-key.pem ec2-user@<ipaddress>
 ```
 Its possible to use public EC2 instance as a jumpbox to ssh into private EC2 instances within the VPC.
 
-Change root password upon first-Login to `control-dev` machine
+Change root password upon first-Login to `dev-Control` machine
 ```bash
 sudo passwd
 ```
