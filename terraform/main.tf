@@ -33,18 +33,18 @@ output "private_security_group" {
   value = module.security_group.private_sg_group_id
 }
 
-module "ec2_bastion" {
-  source = "./modules/ec2_bastion"
+module "ec2_public" {
+  source = "./modules/ec2_public"
 }
 
-output "ec2_bastion_id" {
-  description = "id of ec2_bastion machines"
-  value = module.ec2_bastion.ec2_bastion_public_instance_ids
+output "ec2_public_id" {
+  description = "id of ec2_bastion machine"
+  value = module.ec2_public.ec2_bastion_public_instance_ids
 }
 
-output "ec2_bastion_ip" {
+output "ec2_public_ip" {
   description = "ec2_bastion machine ipv4 address"
-  value = module.ec2_bastion.ec2_bastion_public_ip
+  value = module.ec2_public.ec2_bastion_public_ip
 }
 
 module "ec2_kubernetes" {
