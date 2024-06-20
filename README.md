@@ -117,7 +117,7 @@ sudo yum update -y
 sudo yum upgrade -y
 ```
 
-Confirm Git was installed by terraform**
+Confirm Git was installed by terraform
 ```bash
 git --version
 ```
