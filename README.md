@@ -178,7 +178,7 @@ ansible-playbook -i inventory/mycluster/hosts.yaml --become --become-user=odenna
 
 -----
 
-## Destroying Resources(Optional)
+#### Destroying Resources(Optional)
 
 To tear down the infrastructure created by Terraform.
 
