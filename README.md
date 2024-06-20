@@ -8,7 +8,7 @@ This project uses terraform to deploy a 3-Tier Architecture on AWS which consist
 
 - Bastion, private and database EC2 instances.
 
-- NAT gateway for private EC2 instances to communicate with the internet
+- Internet and NAT gateway for all EC2 instances to communicate with the internet.
 
 - Elastic IPs assigned for NAT gateways.
 
