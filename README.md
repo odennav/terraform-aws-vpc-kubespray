@@ -8,19 +8,13 @@ This project uses Terraform to deploy a 3-Tier Architecture on AWS which consist
 
 - Bastion, private and database EC2 instances.
 
-- Internet for Bastion EC2 instances.
+- Internet gateway for Bastion EC2 instances.
 
 - NAT gateway for private EC2 instances to communicate with the internet.
 
 - Elastic IPs assigned for NAT gateways.
 
 No routes created from NAT gateway to database instances.
-
-Shell scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
-
-Inventory list for ansible is dynamically build with `.tpl` template.
-
-Amazon EKS cluster is best for production but not deployed due to financial costs.
 
 ### Requirements
 
@@ -31,6 +25,11 @@ Amazon EKS cluster is best for production but not deployed due to financial cost
 - Generate key pair for connection to EC2 instances in AWS console. Name it `terraform-key`. Choose `RSA` key pair type and use `.pem` key file format.
 
 - Minimum required version of Kubernetes is **`v1.27`**
+
+Shell scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
+
+Inventory list for ansible is dynamically build with `.tpl` template.
+
 
 ### Getting Started
 
