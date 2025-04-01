@@ -28,7 +28,7 @@ No routes created from NAT gateway to database instances.
 
 Shell scripts used to automate deployment of kubernetes cluster to private EC2 instances with kubespray.
 
-Inventory list for ansible is dynamically build with `.tpl` template.
+Inventory list for ansible is dynamically built with `.tpl` template.
 
 
 ### Getting Started
